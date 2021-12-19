@@ -14,8 +14,10 @@ namespace test_app.Controllers
     {
         static private int  ELEMENT_PER_PAGE = 10;
 
-
-        static public int GetCountOfPages(List<Facility> list) => list.Count() / ELEMENT_PER_PAGE;
+        static public int GetCountOfPages(List<Facility> list) =>
+                list.Count() % ELEMENT_PER_PAGE == 0 
+            ? (list.Count() / ELEMENT_PER_PAGE) - 1
+            : list.Count() /ELEMENT_PER_PAGE;
 
         static public List<Facility> GetPage(List<Facility> _list, int currentPage )
         {
@@ -32,12 +34,12 @@ namespace test_app.Controllers
     };
 
 
+
+
     public class FacilityController : Controller
     {
 
         ApplicationContext db;
-
-
 
 
 
@@ -63,7 +65,6 @@ namespace test_app.Controllers
         {
             db.Facility.Update(facility);
             await db.SaveChangesAsync();
-
             return Json(facility);
         }
 
@@ -83,9 +84,7 @@ namespace test_app.Controllers
                 }
             }
 
-
-            return Json(id);
-         
+            return Json(id);         
         }
 
 

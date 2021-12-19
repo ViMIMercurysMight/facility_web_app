@@ -24,10 +24,10 @@ namespace test_app
 
         public IConfiguration Configuration { get; }
 
+   
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
 
             string conn = Configuration.GetConnectionString("facilityAppCon");
             services.AddDbContext<ApplicationContext>(options =>
@@ -37,10 +37,8 @@ namespace test_app
             services.AddMvc();
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Latest);
             
-            //  services.AddControllersWithViews();
-
-            //     services.AddRazorPages();
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -66,7 +64,6 @@ namespace test_app
 
             app.UseEndpoints(endpoints =>
             {
-                // endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Facility}/{action=Index}/{id?}");

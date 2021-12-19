@@ -176,7 +176,6 @@ window.onload = _ => {
             axios
                 .get('/Facility/GetCountOfPages')
                 .then(response => this.pageCount = response.data);
-
         
             axios
                 .get('/Facility/GetPageItemJson')
@@ -189,6 +188,12 @@ window.onload = _ => {
         },
 
         methods: {
+
+            updatePageCount: function () {
+                axios
+                    .get('/Facility/GetCountOfPages')
+                    .then(response => this.pageCount = response.data);
+            },
 
             changePage: function (page) {
 
@@ -211,8 +216,12 @@ window.onload = _ => {
                     params: {
                         id: id
                     }
-                }).then(_ => this.changePage(this.currentPage));
+                }).then(_ => {
+                    this.changePage(this.currentPage);
+                    this.updatePageCount();
+                });
             },
+
 
             update: function (updatedItem) {
 
@@ -230,14 +239,17 @@ window.onload = _ => {
 
             },
 
+
             showCreateForm: function () {
                 this.isCreateNow = true;
             },
+
 
             showUpdateForm: function (updateItem) {
                 this.updateItem = updateItem;
                 this.isUpdateNow = true;
             },
+
 
             create: function (data) {
                 this.isCreateNow = false;
@@ -249,7 +261,10 @@ window.onload = _ => {
                     data: {
                         ...data
                     }
-                }).then(_ => this.changePage(this.currentPage));
+                }).then(_ => {
+                    this.changePage(this.currentPage);
+                    this.updatePageCount();
+                });
 
             }
         }
