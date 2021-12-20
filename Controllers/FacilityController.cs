@@ -28,11 +28,6 @@ namespace test_app.Controllers
             => Json( await _appModel.Create(facility));
 
 
-        /*
-         * --- Сделать инициализацию данных при определении миграци
-         * --- Сделать выборку страниц с сервера БД
-         * 
-         */
 
 
         [HttpPut]

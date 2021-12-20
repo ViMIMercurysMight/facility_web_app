@@ -82,18 +82,9 @@ namespace test_app.Migrations
        "
            );
 
-
-            //        LEFT JOIN FacilityStatus ON Facility.StatusId = FacilityStatus.Id
-
-
         }
 
-        /*
-         *    
-         *   
-         * 
-         */
-
+        
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
