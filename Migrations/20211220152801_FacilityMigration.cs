@@ -42,11 +42,57 @@ namespace test_app.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+          
             migrationBuilder.CreateIndex(
                 name: "IX_Facility_StatusId",
                 table: "Facility",
                 column: "StatusId");
+
+
+      
+            migrationBuilder.InsertData(
+                table: "FacilityStatus",
+            columns: new[] {"Id" ,"Name" },
+            values: new object[,]
+            {
+                { "1","Active" },
+                { "2","Inactive" },
+                { "3","OnHold" }
+        });
+
+
+
+            migrationBuilder.Sql(@"    CREATE PROCEDURE GetCountOfFacilities 
+                                   @itemsCount INTEGER OUTPUT
+                                       AS
+                                           SELECT @itemsCount = COUNT(*) FROM Facility;
+                                       RETURN 0;
+                           "
+  );
+
+
+       migrationBuilder.Sql(@"CREATE PROCEDURE GetFacilityPage
+                                   @page    INTEGER,
+                                   @perPage INTEGER
+                                   AS
+                                       SELECT * FROM Facility
+                                       ORDER BY Facility.Id
+                                               OFFSET ( @page * @perPage ) ROWS FETCH NEXT @perPage ROWS ONLY;
+                                   
+       "
+           );
+
+
+            //        LEFT JOIN FacilityStatus ON Facility.StatusId = FacilityStatus.Id
+
+
         }
+
+        /*
+         *    
+         *   
+         * 
+         */
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
@@ -55,6 +101,9 @@ namespace test_app.Migrations
 
             migrationBuilder.DropTable(
                 name: "FacilityStatus");
+
+            migrationBuilder.Sql(@"DROP PROCEDURE GetCountOfFacilities;");
+            migrationBuilder.Sql(@"DROP PROCEDURE GetFacilityPage;");
         }
     }
 }

@@ -10,7 +10,7 @@ using test_app.Models;
 namespace test_app.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20211218232644_FacilityMigration")]
+    [Migration("20211220152801_FacilityMigration")]
     partial class FacilityMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,6 +65,23 @@ namespace test_app.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FacilityStatus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Active"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Inactive"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "OnHold"
+                        });
                 });
 
             modelBuilder.Entity("test_app.Models.Facility", b =>

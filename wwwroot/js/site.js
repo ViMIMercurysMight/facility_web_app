@@ -205,7 +205,8 @@ window.onload = _ => {
                         params: {
                             page: page
                         }
-                    }) .then(response => this.pageItems = response.data);
+                    }).then(response => this.pageItems = response.data);
+
             },
 
             remove: function (id) {

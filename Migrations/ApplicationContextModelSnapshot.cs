@@ -63,6 +63,23 @@ namespace test_app.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FacilityStatus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Active"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Inactive"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "OnHold"
+                        });
                 });
 
             modelBuilder.Entity("test_app.Models.Facility", b =>
